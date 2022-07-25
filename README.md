@@ -9,7 +9,7 @@ RazerMS provides few of the integration methods to suit every business needs.
 A hosted solution where customer will be redirected from merchant site to RazerMS hosted page, channel selection will be done on this page before being redirected to each online banking / ewallet page to proceed with the payment authorization or OTP. After that a success / failure page will be displayed to customer before being redirected back to merchant site.
 #### ii. Seamless Integration
 Channel selection will be done in the merchant site which require more integration effort from the developers compared to Hosted Payment Page. For card channel the card number will still be input through RazerMS page hence no PCI compliance is required from merchant. 
-#### iii. Inpage Chackout
+#### iii. Inpage Checkout
 Similar to seamless integration but only support card channel, and the difference compared to seamless integration is the card number input page will be hosted via iFrame on merchant site instead of a popup window.  
 #### iv. Mobile XDK  
 Best for mobile in-app purchase.
@@ -55,8 +55,8 @@ RazerMS will return the transaction status based on our own status within our sy
   
   
 ### Tips #6. For void use Reversal API, for refund use Refund API
-We have 2 types of Refund, i.e. Reversal and Full / Patial Refund
+We have 2 types of Refund, i.e. Reversal and Full / Partial Refund
 #### i. Reversal
 RazerMS will forward the refund request by merchant to the respective online banking / ewallet channel, and proceed to void the transaction, but this is only allowed on the same day as the transaction itself.  
-#### ii. Full / Patial Refund  
+#### ii. Full / Partial Refund  
 RazerMS will process the refund request by merchant ourselves and allow up to 180 days after the transaction date.  
