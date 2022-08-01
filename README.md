@@ -60,3 +60,9 @@ We have 2 types of Refund, i.e. Reversal and Full / Partial Refund
 RazerMS will forward the refund request by merchant to the respective online banking / ewallet channel, and proceed to void the transaction, but this is only allowed on the same day as the transaction itself.  
 #### ii. Full / Partial Refund  
 RazerMS will process the refund request by merchant ourselves and allow up to 180 days after the transaction date.  
+
+### Tips #7. Guest Checkout to disable save card feature  
+RazerMS provides save card features by requiring customer's basic info like billing name, mobile number and email. With that being said, this feature is only eligible for a registered user of the merchant's website. But there are also some checkout where merchant does not hold the customer's basic contact info, which is also known as a guest checkout. To disable save card feature for a guest user, merchant can pass the parameter `bill_name=guest&bill_email=&bill_mobile=` (case insensitive) to our payment page.   
+<p align="center">
+<img src="https://user-images.githubusercontent.com/19460508/182115799-36bb1835-d634-49ae-9ff2-bc5121b452b4.png" />
+</p>
