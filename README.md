@@ -66,3 +66,29 @@ RazerMS provides save card features by requiring customer's basic info like bill
 <p align="center">
 <img src="https://user-images.githubusercontent.com/19460508/182115799-36bb1835-d634-49ae-9ff2-bc5121b452b4.png" />
 </p>
+
+  
+### Tips #8. x-www-form-urlencoded instead of JSON  
+Most of our API is accepting POST request in the format of x-www-form-urlencoded instead of JSON, please make sure you are using the correct format when submitting the request. Meanwhile, if you are submitting the request with both GET (query string) and POST (x-www-form-urlencoded) parameters, please bear in mind that by default the POST parameters will always overwrite the GET parameters. For e.g. in PHP if the script is written as $REQUEST['param1'], this will always prioritize $POST['param1'] rather than $GET['param1'].  
+
+<p align="center">
+<img src="https://github.com/RazerMS/Cheatsheet-BestPractices-RazerMS_API/assets/19460508/a8aab2f1-b16b-4852-a7e6-dfff2d9231ad" />
+</p>
+
+  
+### Tips #9. Domain name whitelisting (domain registration) required when using seamless integration  
+If you are using our seamless integration where the checkout page is hosted under your domain, you will need to register your domain name by sending an email to support-sa@razer.com, alternatively you can also register your domain name in merchant portal (Merchant Profile -> Profile Settings). But this is subjected to approval by our operation team. Multiple subdomains are accepted but only one domain is allowed per Merchant ID. On top of that, embeded page (iFrame) is not allowed for seamless integration type.  
+
+<p align="center">
+<img src="https://github.com/RazerMS/Cheatsheet-BestPractices-RazerMS_API/assets/19460508/15090976-a0dc-4ae8-8eed-3997c23fd1bd" />
+</p>
+  
+  
+### Tips #10. Environment IP whitelisting required when testing payment in demo bank page under sandbox environment   
+In order to prevent merchant from accidentally deploying sandbox (demo bank) into their production environment and let customers pay with dummy account, we have applied some measures like a protected username and password for the demo bank, and also the requirement to whitelist your environment IP address (usually it's an IP address which belongs to your working space), under sandbox merchant portal (Merchant Profile -> Profile Settings).  
+
+<p align="center">
+<img src="https://github.com/RazerMS/Cheatsheet-BestPractices-RazerMS_API/assets/19460508/54f5edb0-7321-457c-80fe-f4e9f9157bcc" />
+</p>
+
+    
