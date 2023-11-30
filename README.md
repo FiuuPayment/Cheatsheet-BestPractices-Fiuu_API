@@ -92,3 +92,15 @@ In order to prevent merchant from accidentally deploying sandbox (demo bank) int
 </p>
 
     
+### Tips #11. Applying Static QR-Code Generator for offline and online use case  
+Online payment refer to ecommerce payment, like shopping cart checkout. While offline payment refer to terminal payment, or kiosk payment. 
+For offline payment use case, merchants are advised to generate one QR code for each vending machine respectively. All customers can scan the same QR code to make payment. For the amount, if merchant pre-set the amount before generating the QR code, customers can only pay with the specific amount. If the amount is left empty, then customers are allowed to enter the amount themselves.  
+For online payment use case, this solution is also a viable option. But there are few limitations that you need to take into consideration:  
+1. Merchants will only receive the notification URL webhook after customer completed payment successfully.
+2. For static QR, merchants will receive a similar response as online payment.  
+3. Merchants will not know how much customers has paid until payment completed (in case the static QR is not pre-set with any fixed amount).  
+4. Order ID will be always static.  
+
+<p align="center">
+<img src="https://github.com/RazerMS/Cheatsheet-BestPractices-RazerMS_API/assets/19460508/e1e6664e-76fb-47bc-9238-a78790505408" />
+</p>
