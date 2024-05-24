@@ -107,10 +107,46 @@ For online payment use case, this solution is also a viable option. But there ar
 
 ### Tips #12. Further explanation and ability for retry for error codes from capture and refund API (response)   
 
-<p align="center">
-<img src="https://github.com/FiuuPayment/Cheatsheet-BestPractices-Fiuu_API/assets/19460508/0f706bae-e850-4d57-83db-684e79dd1dad" />
-</p>  
-
-<p align="center">
-<img src="https://github.com/FiuuPayment/Cheatsheet-BestPractices-Fiuu_API/assets/19460508/b31b6040-febb-4c5f-bbaf-cf1fa17ab7a6" />
-</p>
+|**Capture API list of error codes/description/explanation**||||
+| - | - | - | :- |
+|||||
+|**Error Code**|**Error description**|**Further Explanation**|**Can retry?**|
+|00|Success|Capture is successful|No, this is the final result|
+|11|Failure|Capture has failed|No, this is the final result, could due to rejection by channel / bank|
+|12|Invalid or unmatched security hash string|skey calculation incorrect|Yes, can retry after amending the skey by following the correct formula and algorithm|
+|13|Not a credit card transaction|The transaction channel does not allow to capture|No, check the transaction ID passed does it belong to a card transaction?|
+|15|Requested day is on settlement day|Not allowed to capture if same day as settlement day|Yes, can retry after start of next day of the week|
+|16|Forbidden transaction|The transaction channel does not allow partial capture|Yes, can retry after change the amount to full amount|
+|17|Transaction not found|Transaction ID not found in Fiuu's database|No, check the transaction ID passed does it belong to a valid Fiuu's transaction?|
+|18|Missing required parameter|Mandatory parameter are not passed|Yes, can retry after amending the missing parameter|
+|19|Domain not found|Merchant ID not found in Fiuu's database|No, check the merchant ID passed does it belong to Fiuu?|
+|20|Temporary out of service|Due to Fiuu's internal error / service interuption|Yes, can retry after Fiuu fix the intermittent issue at their system|
+|21|Authorization expired|Exceeded the max period allowed to capture the transaction|No, need to make sure the request is sent within the allowable time window|
+|23|Not allowed to perform partial capture|The transaction channel does not allow partial capture|Yes, can retry after change the amount to full amount|
+|24|Transaction has already been captured|The transaction ID passed has already been captured|No, this is the final result|
+|25|Amount requested more than available capture amount|The amount passed exceeded the authorized / original amount|Yes, can retry after amending the amount to be less than the authorized / original amount|
+|99|General Error(Please check with PG Support)|Due to Fiuu's internal error / service interuption|Yes, can retry after Fiuu fix the intermittent issue at their system|
+|||||
+|**Refund API list of error codes/description/explanation**||||
+|||||
+|**Error Code**|**Error description**|**Further Explanation**|**Can retry?**|
+|PR001|Refund Type not found.|Invalid refund type passed|Yes, can retry after amending the refund type parameter|
+|PR002|MerchantID field is mandatory|Mandatory parameter are not passed|Yes, can retry after amending the missing parameter|
+|PR003|RefID field is mandatory|Mandatory parameter are not passed|Yes, can retry after amending the missing parameter|
+|PR004|TxnID field is mandatory|Mandatory parameter are not passed|Yes, can retry after amending the missing parameter|
+|PR005|Amount field is mandatory|Mandatory parameter are not passed|Yes, can retry after amending the missing parameter|
+|PR006|Signature field is mandatory|Mandatory parameter are not passed|Yes, can retry after amending the missing parameter|
+|PR007|Merchant ID not found.|Merchant ID not found in Fiuu's database|No, check the merchant ID passed does it belong to Fiuu?|
+|PR008|Invalid Signature.|Signature calculation incorrect|Yes, can retry after amending the Signature by following the correct formula and algorithm|
+|PR009|Txn ID not found.|Transaction ID not found in Fiuu's database|No, check the transaction ID passed does it belong to a valid Fiuu's transaction?|
+|PR010|Transaction must be in authorized/captured/settled status. Current transaction is in {{TRANSACTION\_STATUS}} status|The transaction ID passed is not in a refundable status|Yes, can retry if the current {{TRANSACTION\_STATUS}} is "pending", no if the current  {{TRANSACTION\_STATUS}} is already "cancelled"|
+|PR011|Exceed refund amount for this transaction|The amount passed exceeded the original transaction amount|Yes, can retry after amending the amount to be lower than or equal to the original  transaction amount|
+|PR012|Bank information is not applicable for credit channel  transaction|Card transaction does not require beneficiary bank account information|Yes, can retry after removing the beneficiary bank account information|
+|PR013|BankCode not found in our database, please contact  support|The bank code passed is not found in Fiuu's database|Yes, can retry after amending the bank code|
+|PR014|Bank information is mandatory for non-credit channel  transaction|Non-card transaction require beneficiary bank account  information|Yes, can retry after adding the beneficiary bank account information|
+|PR015|Server is busy, try again later|Due to Fiuu's internal error / service interuption|Yes, can retry after Fiuu fix the intermittent issue at their system|
+|PR016|Duplicate RefID found, please provide a unique RefID|Fiuu's system does not allow duplicated RefID|Yes, can retry after amending RefID to become unique|
+|PR017|Refund request for transaction that is out of the allowed  period|Exceeded the max period allowed to refund the transaction|No, need to make sure the request is sent within the allowable time window|
+|PR018|BeneficiaryName cannot contain non-alphanumeric  characters|Invalid beneficiary bank account information passed|Yes, can retry after amending the beneficiary name|
+|PR019|Refund is not allowed / Only partial refund is allowed /  Only full refund is allowed|The transaction channel does not allow full/partial refund|Yes, can retry after amending the amount|
+|PR020|Insufficient balance to refund|Not enough account balance left in Fiuu's system for your current account|Yes, can retry after more account balance increased as the result of more incoming transactions being captured|
