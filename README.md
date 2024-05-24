@@ -104,3 +104,13 @@ For online payment use case, this solution is also a viable option. But there ar
 <p align="center">
 <img src="https://github.com/RazerMS/Cheatsheet-BestPractices-RazerMS_API/assets/19460508/e1e6664e-76fb-47bc-9238-a78790505408" />
 </p>
+
+### Tips #12. Further explanation and ability for retry for error codes from capture and refund API (response)   
+
+<p align="center">
+<img src="https://github.com/FiuuPayment/Cheatsheet-BestPractices-Fiuu_API/assets/19460508/0f706bae-e850-4d57-83db-684e79dd1dad" />
+</p>  
+
+<p align="center">
+<img src="https://github.com/FiuuPayment/Cheatsheet-BestPractices-Fiuu_API/assets/19460508/b31b6040-febb-4c5f-bbaf-cf1fa17ab7a6" />
+</p>
