@@ -105,9 +105,9 @@ For online payment use case, this solution is also a viable option. But there ar
 <img src="https://github.com/RazerMS/Cheatsheet-BestPractices-RazerMS_API/assets/19460508/e1e6664e-76fb-47bc-9238-a78790505408" />
 </p>
 
-### Tips #12. Further explanation and ability for retry for error codes from capture and refund API (response)   
+### Tips #12. Further explanation and ability for retry for each error codes from capture and refund API (response)   
 
-|**Capture API list of error codes/description/explanation**||||
+|**Capture API's list of error codes**||||
 | - | - | - | :- |
 |||||
 |**Error Code**|**Error description**|**Further Explanation**|**Can retry?**|
@@ -121,13 +121,13 @@ For online payment use case, this solution is also a viable option. But there ar
 |18|Missing required parameter|Mandatory parameter are not passed|Yes, can retry after amending the missing parameter|
 |19|Domain not found|Merchant ID not found in Fiuu's database|No, check the merchant ID passed does it belong to Fiuu?|
 |20|Temporary out of service|Due to Fiuu's internal error / service interuption|Yes, can retry after Fiuu fix the intermittent issue at their system|
-|21|Authorization expired|Exceeded the max period allowed to capture the transaction|No, need to make sure the request is sent within the allowable time window|
+|21|Authorization expired|Exceeded the max period allowed to capture the transaction|No, need to make sure the request is sent within the allowable time frame|
 |23|Not allowed to perform partial capture|The transaction channel does not allow partial capture|Yes, can retry after change the amount to full amount|
 |24|Transaction has already been captured|The transaction ID passed has already been captured|No, this is the final result|
 |25|Amount requested more than available capture amount|The amount passed exceeded the authorized / original amount|Yes, can retry after amending the amount to be less than the authorized / original amount|
 |99|General Error(Please check with PG Support)|Due to Fiuu's internal error / service interuption|Yes, can retry after Fiuu fix the intermittent issue at their system|
 |||||
-|**Refund API list of error codes/description/explanation**||||
+|**Refund API's list of error codes**||||
 |||||
 |**Error Code**|**Error description**|**Further Explanation**|**Can retry?**|
 |PR001|Refund Type not found.|Invalid refund type passed|Yes, can retry after amending the refund type parameter|
@@ -146,7 +146,7 @@ For online payment use case, this solution is also a viable option. But there ar
 |PR014|Bank information is mandatory for non-credit channel  transaction|Non-card transaction require beneficiary bank account  information|Yes, can retry after adding the beneficiary bank account information|
 |PR015|Server is busy, try again later|Due to Fiuu's internal error / service interuption|Yes, can retry after Fiuu fix the intermittent issue at their system|
 |PR016|Duplicate RefID found, please provide a unique RefID|Fiuu's system does not allow duplicated RefID|Yes, can retry after amending RefID to become unique|
-|PR017|Refund request for transaction that is out of the allowed  period|Exceeded the max period allowed to refund the transaction|No, need to make sure the request is sent within the allowable time window|
+|PR017|Refund request for transaction that is out of the allowed  period|Exceeded the max period allowed to refund the transaction|No, need to make sure the request is sent within the allowable time frame|
 |PR018|BeneficiaryName cannot contain non-alphanumeric  characters|Invalid beneficiary bank account information passed|Yes, can retry after amending the beneficiary name|
 |PR019|Refund is not allowed / Only partial refund is allowed /  Only full refund is allowed|The transaction channel does not allow full/partial refund|Yes, can retry after amending the amount|
-|PR020|Insufficient balance to refund|Not enough account balance left in Fiuu's system for your current account|Yes, can retry after more account balance increased as the result of more incoming transactions being captured|
+|PR020|Insufficient balance to refund|Not enough account balance left for your current account in Fiuu's system|Yes, can retry after more account balance increased as the result of more incoming transactions being captured|
