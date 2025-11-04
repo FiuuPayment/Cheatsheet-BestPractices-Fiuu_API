@@ -6,17 +6,17 @@ This is a cheatsheet for those developers who is frustrated by the lengthy offic
 ### Tips #1. Various integration method provided by Fiuu  
 Fiuu provides few of the integration methods to suit every business needs.  
 #### i. Hosted Payment Page  
-A hosted solution where customer will be redirected from merchant site to Fiuu hosted page, channel selection will be done on this page before being redirected to each online banking / ewallet page to proceed with the payment authorization or OTP. After that a success / failure page will be displayed to customer before being redirected back to merchant site.
+A hosted solution where customer will redirect from merchant's website to Fiuu's hosted payment page (using HTML form submit method), channel selection will be displayed on this page before redirect to each online banking / ewallet page to proceed with the payment authentication and authorization (via OTP or secureTAC). After that a success / failure page will be displayed to customer before redirect back to merchant's website. This integration type is the most straight-forward and require least effort among other integration types. You may find Fiuu's Hosted Payment Page API document here (https://github.com/FiuuPayment/Documentation-Fiuu_API_Spec/blob/main/%5Bofficial%20API%5D%20Fiuu%20API%20Spec%20for%20Merchant%20(v13.90).pdf).   
 #### ii. Seamless Integration
-Channel selection will be done in the merchant site which require more integration effort from the developers compared to Hosted Payment Page. For card channel the card number will still be input through Fiuu page hence no PCI compliance is required from merchant. 
+Channel selection will be displayed in the merchant's website which require more integration effort from the developers comparing to Hosted Payment Page. For card channel the card number will still be input through Fiuu's page hence no PCI-DSS compliance is required from the merchant. You may find Fiuu's Seamless Integration API document here (https://github.com/FiuuPayment/Integration-Fiuu_JavaScript_Seamless_Integration).   
 #### iii. Inpage Checkout
-Similar to seamless integration but only support card channel, and the difference compared to seamless integration is the card number input page will be hosted via iFrame on merchant site instead of a popup window.  
+Similar to seamless integration but only support card channel, and the difference comparing to seamless integration is the card number input page will be hosted via iFrame on merchant's website instead of Fiuu's page. You may find Fiuu's Inpage checkout API document here (https://github.com/FiuuPayment/Integration-Fiuu_Inpage_Checkout).   
 #### iv. Mobile XDK  
-Best for mobile in-app purchase.
+Best for mobile in-app purchase in the form of installable plugins. You may search for the plugin suited to your specific development platform (for e.g. Android Studio, Xcode, Flutter etc.) under this page (https://github.com/FiuuPayment/).  
 #### v. Direct Server Integration
-No UI will be provided by Fiuu, channel selection and card number input will all be done on merchant site, hence require merchant to be PCI compliant.  
+No UI will be provided by Fiuu, channel selection and card number input will all be displayed on merchant's website, hence requires merchant to be PCI-DSS compliant. Please request for Fiuu's Direct Server API document (NOT published anywhere publicly) by dropping an email to support@fiuu.com.  
 #### vi. Recurring API  
-No UI will be provided by Fiuu, but it supports recurring payment by any amount at any time.  
+No UI will be provided by Fiuu, but it supports recurring payment by any amount at any time based on merchant's own scheduler (for e.g. cron job). Before sending a request to Fiuu's recurring API, it is required for merchant to obtain a token from a one-time payment (can be card or ewallet transaction). The one-time payment could be made with a minimum amount with our hosted payment page or seamless integration, once the one-time payment has been successful, expect a set of token (in the form of alpha-numeric string) will be returned under extraP parameters via notification URL. Also please note that merchant will need to explicitly request for tokenization and recurring feature to be enabled for your merchant ID by sending an email to support@fiuu.com. You can find Fiuu's recurring API document here (https://github.com/FiuuPayment/Documentation-Fiuu_API_Spec/blob/main/Fiuu%20Recurring%20API%20v7.1.4.pdf).   
 
 #### Comparison Chart
 <p align="center">
@@ -25,7 +25,7 @@ No UI will be provided by Fiuu, but it supports recurring payment by any amount 
   
    
 ### Tips #2. The 3 endpoints to update payment status on merchant site  
-When a payment is done by customer, how do we update the transaction status to the merchant? The 3 endpoints, i.e. Return URL, Notification URL, Callback URL serves as a mechanism to update merchant transaction status.  
+When a payment is done by customer, how do we update the transaction status to the merchant? The 3 endpoints, i.e. Return URL, Notification URL, Callback URL serves as a mechanism to update merchant transaction status. You may find Fiuu's the API document for the implementation of the 3 endpoints here (https://github.com/FiuuPayment/Documentation-Fiuu_API_Spec/blob/main/%5Bofficial%20API%5D%20Fiuu%20API%20Spec%20for%20Merchant%20(v13.90).pdf). 
 #### i. Return URL
 Realtime web browser or frontend redirection endpoint for hosted page, seamless integration, and shopping cart module. Impact user's UI/UX or journey in the whole payment process. DO NOT RELY ON THIS ENDPOINT TO UPDATE YOUR TRANSACTION STATUS, DUE TO IT BEING SUSCEPTIBLE TO MITM (MAN-IN-THE-MIDDLE) ATTACK, REFER TO NOTIFCATION URL FOR A MORE ROBUST STATUS UPDATE METHODOLOGY.  
 #### ii. Notification URL
@@ -69,7 +69,7 @@ Fiuu provides save card features by requiring customer's basic info like billing
 
   
 ### Tips #8. x-www-form-urlencoded instead of JSON  
-Most of our API is accepting POST request in the format of x-www-form-urlencoded instead of JSON, please make sure you are using the correct format when submitting the request. Meanwhile, if you are submitting the request with both GET (query string) and POST (x-www-form-urlencoded) parameters, please bear in mind that by default the POST parameters will always overwrite the GET parameters. For e.g. in PHP if the script is written as $REQUEST['param1'], this will always prioritize $POST['param1'] rather than $GET['param1'].  
+Most of our API is accepting POST request in the format of x-www-form-urlencoded instead of JSON, please make sure you are using the correct format when submitting the request. Meanwhile, if you are submitting the request with both GET (query string) and POST (x-www-form-urlencoded) parameters, please bear in mind that by default the POST parameters will always overwrite the GET parameters. For e.g. in PHP if the script is written as $_REQUEST['param1'], this will always prioritize $_POST['param1'] rather than $_GET['param1'].  
 
 <p align="center">
 <img src="https://github.com/RazerMS/Cheatsheet-BestPractices-RazerMS_API/assets/19460508/a8aab2f1-b16b-4852-a7e6-dfff2d9231ad" />
