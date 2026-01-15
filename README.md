@@ -25,7 +25,7 @@ No UI will be provided by Fiuu, but it supports recurring payment by any amount 
   
    
 ### Tips #2. The 3 endpoints to update payment status on merchant site  
-When a payment is done by customer, how do we update the transaction status to the merchant? The 3 endpoints, i.e. Return URL, Notification URL, Callback URL serves as a mechanism to update merchant transaction status. You may find Fiuu's the API document for the implementation of the 3 endpoints here (https://github.com/FiuuPayment/Documentation-Fiuu_API_Spec/blob/main/%5Bofficial%20API%5D%20Fiuu%20API%20Spec%20for%20Merchant%20(v13.90).pdf). 
+When a payment is done by customer, how do we update the transaction status to the merchant? The 3 endpoints, i.e. Return URL, Notification URL, Callback URL serves as a mechanism to update merchant transaction status. You may find Fiuu's the API document for the implementation of the 3 endpoints here (https://github.com/FiuuPayment/Documentation-Fiuu_API_Spec/blob/main/%5Bofficial%20API%5D%20Fiuu%20API%20Spec%20for%20Merchant%20(v13.92).pdf). 
 #### i. Return URL
 Realtime web browser or frontend redirection endpoint for hosted page, seamless integration, and shopping cart module. Impact user's UI/UX or journey in the whole payment process. DO NOT RELY ON THIS ENDPOINT TO UPDATE YOUR TRANSACTION STATUS, DUE TO IT BEING SUSCEPTIBLE TO MITM (MAN-IN-THE-MIDDLE) ATTACK, REFER TO NOTIFCATION URL FOR A MORE ROBUST STATUS UPDATE METHODOLOGY.  
 #### ii. Notification URL
